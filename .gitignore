@@ -1,0 +1,51 @@
+# Ignore user-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+[Ll]og/
+[Bb]uild/
+[Bb]uild[Ll]og.*
+
+# Visual Studio cache
+.vs/
+
+# NuGet packages
+*.nupkg
+*.snupkg
+*.nuspec
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET temp files
+*.dbmdl
+*.bak
+*.sql
+
+# Rider IDE (if used)
+.idea/
+
+# VSCode settings (optional)
+.vscode/
+
+# Resharper
+_ReSharper*/
+*.[Rr]e[Ss]harper
+
+# DotCover
+*.dotCover
+
+# Others
+*.tmp
+*.temp
+*.log
+*.vspscc
+*.vssscc
+*.orig
