@@ -46,5 +46,61 @@ namespace PDFConverter
         {
             InitializeComponent();
         }
+
+        private void SelectFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            bool? result = openFileDialog.ShowDialog();
+
+            if (result.HasValue && result.Value)
+            {
+                // pathTextBox is the variable name from xaml textbox
+                pathTextBox.Text = openFileDialog.FileName;
+            }
+        }
+
+
+        private void ConvertButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(pathTextBox.Text == String.Empty)
+            {
+                MessageBox.Show("Please select a file");
+                return;
+            }
+
+            switch (conversionDropDown.SelectedIndex)
+            {
+                case 0: // Convert DOC to PDF
+                    ConvertDocToPDF(pathTextBox.Text);
+                    break;
+                default:
+                    MessageBox.Show("Please select an option");
+                    return;
+            }
+        }
+
+        private void ConvertDocToPDF(string docPath)
+        {
+            WordDocument wordDocument = new WordDocument(docPath, FormatType.Automatic);
+            DocToPDFConverter converter = new DocToPDFConverter();
+            PdfDocument pdfDocument = converter.ConvertToPDF(wordDocument);
+
+            // generate new file pdf name with previous filename and adding .pdf at the end
+            string newPDFPath = docPath.Split('.')[0] + ".pdf";
+            pdfDocument.Save(newPDFPath);
+            pdfDocument.Close(true);
+            wordDocument.Close();
+            
+        }
+
+        private void OpenFolder(string folderPath)
+        {
+            ProcessStartInfo startInfo = new ProcessStartInfo()
+            {
+                Arguments = folderPath.Substring(0, folderPath.LastIndexOf('\\')),
+                FileName = "explorer.exe"
+            };
+            Process.Start(startInfo);
+        }
     }
 }
